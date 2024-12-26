@@ -119,7 +119,7 @@ void hack_start(const char *game_data_dir,JavaVM *vm) {
         if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
             continue;
         }
-        if (strstr(entry->d_name, ".so") != NULL && *(strstr(entry->d_name, ".so") + strlen(".so")) == '\0') 
+        if (strstr(entry->d_name, ".so") != NULL && *(strstr(entry->d_name, ".so") + strlen(".so")) == '\0') {
             load_so(game_data_dir,vm, entry->d_name);
         }
     }
