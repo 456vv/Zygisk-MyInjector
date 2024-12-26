@@ -29,7 +29,7 @@ void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
 
     // 构建源文件路径
     char src_path[256];
-    snprintf(src_path, sizeof(src_path), "/data/local/tmp/%s.so", soname);
+    snprintf(src_path, sizeof(src_path), "/data/local/tmp/456vv/%s.so", soname);
 
     // 打开源文件
     int src_fd = open(src_path, O_RDONLY);
@@ -104,8 +104,26 @@ void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
 //    }
 }
 void hack_start(const char *game_data_dir,JavaVM *vm) {
-    load_so(game_data_dir,vm,"test");
-    //如果要注入多个so，那么就在这里不断的添加load_so函数即可
+    
+    const char* path_dir = "/data/local/tmp/456vv/";
+    DIR* dir = opendir(path_dir);
+    if (dir == NULL) {
+    	LOGE("Failed to opendir %s", path_dir);
+        return;
+    }
+    
+    struct dirent* entry;
+	while ((entry = readdir(path_dir)) != NULL) {
+	    if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+	        continue;
+	    }
+
+        if (strstr(entry->d_name, ".so") != NULL && *(strstr(entry->d_name, ".so") + 3) == '\0') {
+ 			load_so(game_data_dir,vm, entry->d_name);
+        }
+    }
+    
+    closedir(dir);
 }
 
 std::string GetLibDir(JavaVM *vms) {
