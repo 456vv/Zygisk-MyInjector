@@ -19,6 +19,8 @@
 //#include <asm-generic/fcntl.h>
 #include <fcntl.h>
 #include "newriruhide.h"
+#include <dirent.h>
+#include <string.h>
 void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
     bool load = false;
     LOGI("hack_start %s", game_data_dir);
