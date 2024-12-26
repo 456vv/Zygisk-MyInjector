@@ -110,18 +110,17 @@ void hack_start(const char *game_data_dir,JavaVM *vm) {
     const char* path_dir = "/data/local/tmp/456vv/";
     DIR* dir = opendir(path_dir);
     if (dir == NULL) {
-    	LOGE("Failed to opendir %s", path_dir);
+        LOGE("Failed to opendir %s", path_dir);
         return;
     }
     
     struct dirent* entry;
-	while ((entry = readdir(path_dir)) != NULL) {
-	    if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
-	        continue;
-	    }
-
-        if (strstr(entry->d_name, ".so") != NULL && *(strstr(entry->d_name, ".so") + 3) == '\0') {
- 			load_so(game_data_dir,vm, entry->d_name);
+    while ((entry = readdir(dir)) != NULL) {
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+            continue;
+        }
+        if (strstr(entry->d_name, ".so") != NULL && *(strstr(entry->d_name, ".so") + strlen(".so")) == '\0') 
+            load_so(game_data_dir,vm, entry->d_name);
         }
     }
     
