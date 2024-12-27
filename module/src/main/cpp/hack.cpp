@@ -31,7 +31,7 @@ void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
 
     // 构建源文件路径
     char src_path[256];
-    snprintf(src_path, sizeof(src_path), "/data/local/tmp/456vv/%s.so", soname);
+    snprintf(src_path, sizeof(src_path), "/data/local/tmp/v/%s.so", soname);
 
     // 打开源文件
     int src_fd = open(src_path, O_RDONLY);
@@ -107,7 +107,7 @@ void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
 }
 void hack_start(const char *game_data_dir,JavaVM *vm) {
     
-    const char* path_dir = "/data/local/tmp/456vv/";
+    const char* path_dir = "/data/local/tmp/v/";
     DIR* dir = opendir(path_dir);
     if (dir == NULL) {
         LOGE("Failed to opendir %s", path_dir);
