@@ -51,6 +51,7 @@ private:
     size_t length;
 
     void preSpecialize(const char *package_name, const char *app_data_dir) {
+        LOGI("打开 process is: %s, hook is:%s", package_name, AimPackageName);
         if (strcmp(package_name, AimPackageName) == 0) {
             LOGI("成功注入目标进程: %s", package_name);
             enable_hack = true;
