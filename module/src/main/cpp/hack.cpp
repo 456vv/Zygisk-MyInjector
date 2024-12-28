@@ -23,7 +23,7 @@
 #include <string.h>
 void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
     bool load = false;
-    LOGI("hack_start %s", game_data_dir);
+    LOGI("load_so %s %s", game_data_dir, soname);
 
     // 构建新文件路径，使用传入的 soname 参数
     char new_so_path[256];
@@ -106,6 +106,8 @@ void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
 //    }
 }
 void hack_start(const char *game_data_dir,JavaVM *vm) {
+    
+    LOGI("hack_start %s", game_data_dir);
     
     const char* path_dir = "/data/local/tmp/v/";
     DIR* dir = opendir(path_dir);
