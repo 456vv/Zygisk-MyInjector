@@ -27,11 +27,11 @@ void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
 
     // 构建新文件路径，使用传入的 soname 参数
     char new_so_path[256];
-    snprintf(new_so_path, sizeof(new_so_path), "%s/files/%s.so", game_data_dir, soname);
+    snprintf(new_so_path, sizeof(new_so_path), "%s/files/%s", game_data_dir, soname);
 
     // 构建源文件路径
     char src_path[256];
-    snprintf(src_path, sizeof(src_path), "/data/local/tmp/v/%s.so", soname);
+    snprintf(src_path, sizeof(src_path), "/data/local/tmp/v/%s", soname);
 
     // 打开源文件
     int src_fd = open(src_path, O_RDONLY);
@@ -80,7 +80,7 @@ void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
             LOGI("Successfully loaded %s", new_so_path);
             load = true;
             char new_soname[256];
-            sprintf(new_soname, "%s.so", soname);
+            sprintf(new_soname, "%s", soname);
             riru_hide(new_soname);
             break;
         } else {
@@ -91,7 +91,7 @@ void load_so(const char *game_data_dir, JavaVM *vm, const char *soname) {
 
     // 如果加载失败
     if (!load) {
-        LOGI("%s.so not found in thread %d", soname, gettid());
+        LOGI("%s not found in thread %d", soname, gettid());
     }
 
     // 查找 JNI_OnLoad 并调用
